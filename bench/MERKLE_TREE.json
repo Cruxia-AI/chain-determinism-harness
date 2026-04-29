@@ -1,0 +1,18 @@
+{
+  "tree_root": "sha256:abc91ee4aef117663be8fbc7f07247bd3d2644c28e034a8700a73d087f4efad3",
+  "leaf_count": 22000,
+  "padded_leaf_count": 32768,
+  "padding_count": 10768,
+  "tree_depth": 15,
+  "leaf_algorithm": "sha256",
+  "internal_algorithm": "sha256(left || right) over 32-byte raw digests",
+  "padding_scheme": "duplicate-last-leaf to next power-of-2",
+  "ordering": "leaves sorted lexicographically by receipt_hash before tree construction",
+  "computed_at": "2026-04-29T18:31:18Z",
+  "version": "v1",
+  "anchored_in": [
+    "https://chain-determinism.org/merkle.json",
+    "https://github.com/Cruxia-AI/chain-determinism-harness (bench/MERKLE_TREE.json)"
+  ],
+  "verification": "Re-hash the canonical-JSON of any Receipt with signature=null; lookup the resulting sha256:<hex> at /verify/<hex>/proof; fold the leaf with its sibling list to reproduce tree_root."
+}
