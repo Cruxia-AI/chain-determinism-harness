@@ -18,7 +18,9 @@ This repository accompanies *Chain-Divergence: A Cross-Vendor Benchmark and Mech
 Companion artifacts:
 
 - Paper landing page — <https://chain-determinism.org/paper>
+- Quickstart (5 minutes, <$2 API spend) — <https://chain-determinism.org/docs/quickstart>
 - Public verifier endpoint — <https://chain-determinism.org/verify/{receipt_hash}>
+- Dataset on HuggingFace — <https://huggingface.co/datasets/cruxia/chain-determinism-bench-v1>
 - Receipt SDK on PyPI — <https://pypi.org/project/chain-receipt-sdk/>
 
 ## Install the harness
