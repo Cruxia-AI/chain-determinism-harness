@@ -1,0 +1,28 @@
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+The contents of the `bench/` directory of this repository — including
+`raw_chains_v1.jsonl.gz`, `raw_chains_v72/*`, `croissant.json`, the README,
+and the Datasheet for Datasets — are licensed under the Creative Commons
+Attribution 4.0 International License.
+
+Copyright (c) 2026 Cruxia-AI / Mars Ausili.
+
+You are free to:
+  * Share — copy and redistribute the material in any medium or format
+  * Adapt — remix, transform, and build upon the material for any purpose,
+    even commercially.
+
+Under the following terms:
+  * Attribution — You must give appropriate credit, provide a link to the
+    license, and indicate if changes were made. You may do so in any
+    reasonable manner, but not in any way that suggests the licensor
+    endorses you or your use.
+
+The full license text is available at:
+  https://creativecommons.org/licenses/by/4.0/legalcode
+
+If you use this dataset in academic work, please cite:
+
+  Ausili, M. (2026). Chain-Divergence: A Cross-Vendor Benchmark and
+  Mechanism Probe for Replay-Attestable LLM Agents. Under peer review.
+  See https://chain-determinism.org/paper for current status.

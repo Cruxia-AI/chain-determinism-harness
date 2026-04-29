@@ -1,0 +1,199 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "chain-determinism-bench-v1",
+  "description": "Multi-vendor chain-determinism observations from 22,000+ replayed agent runs across 11 LLMs. Per-run rows include prompt text (synthetic Sigma-registry queries) plus SHA-256 hashes for response, tool-call sequence, and final answer. Hash format is byte-identical to chain-receipt-sdk so each row can be replayed via `chain-receipt replay <hash>`. Released alongside the Chain-Divergence paper (Cruxia-AI, under peer review).",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "url": "https://github.com/Cruxia-AI/chain-determinism-harness/tree/main/bench",
+  "version": "0.1.0",
+  "keywords": [
+    "chain-determinism",
+    "agent reproducibility",
+    "LLM evaluation",
+    "audit trail",
+    "EU AI Act",
+    "tool-calling agents"
+  ],
+  "creator": {
+    "@type": "Person",
+    "name": "Mars Ausili",
+    "affiliation": "Cruxia-AI"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Cruxia"
+  },
+  "citeAs": "@unpublished{ausili2026chaindivergence, title={Chain-Divergence: A Cross-Vendor Benchmark and Mechanism Probe for Replay-Attestable LLM Agents}, author={Ausili, Mars}, year={2026}, note={Under peer review. See https://chain-determinism.org/paper for current status.}}",
+  "datePublished": "2026-04-27",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "phase_1a_file",
+      "name": "phase_1a.jsonl",
+      "description": "Phase 1a: T=0.0 multi-vendor replay (11 models x 40 held-out OOD queries x 50 runs = 22,000 rows).",
+      "contentUrl": "data/phase_1a.jsonl",
+      "encodingFormat": "application/jsonl",
+      "sha256": "edb6e91bea4fbf04273da15870ddd82535794d213a21b0ec24a23ab9f06711e4"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "phase_1b_file",
+      "name": "phase_1b.jsonl",
+      "description": "Phase 1b: T=0.5/1.0 temperature sweep (10 models x 40 queries x 20 runs x 2 temps = 8,000 rows; one model dropped from 1b run).",
+      "contentUrl": "data/phase_1b.jsonl",
+      "encodingFormat": "application/jsonl",
+      "sha256": "3a6c4093e4a9b810d2f42a940dc7367ef6507e016745a48a10336220300abd0b"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "phase_2_v2_file",
+      "name": "phase_2_v2.jsonl",
+      "description": "Phase 2 v2: mechanism attribution on Qwen 2.5 72B Instruct (Modal vLLM A100-80GB:2). 1,600 hash-only Receipts: 40 held-out queries x 20 replays x 2 toggles (baseline_all_on, batch_invariant_proxy). baseline_all_on chain-divergence 27.5% [Wilson 95% CI 16.1%, 42.8%]; batch_invariant_proxy 0.0% [0.0%, 8.8%]; McNemar exact-binomial two-sided p = 0.000977.",
+      "contentUrl": "data/phase_2_v2.jsonl",
+      "encodingFormat": "application/jsonl",
+      "sha256": "e7009813f28e0f47b399dba8c982f693052b9f6cb52648c9019924128c0b9ee5"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "phase_3_5_file",
+      "name": "phase_3_5_swebench.jsonl",
+      "description": "Phase 3.5: SWE-bench Lite chain-divergence subset (3 models x 30 instances x ~2 runs = 164 rows).",
+      "contentUrl": "data/phase_3_5_swebench.jsonl",
+      "encodingFormat": "application/jsonl",
+      "sha256": "18aba139fa4ea52f38531193056d721e40fe4d5596e5f56dc522d6b5a59b744f"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "phase_1a",
+      "name": "phase_1a",
+      "description": "T=0.0 multi-vendor replay rows.",
+      "field": [
+        {"@type": "cr:Field", "@id": "phase_1a/row_id", "name": "row_id", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "row_id"}}},
+        {"@type": "cr:Field", "@id": "phase_1a/phase", "name": "phase", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "phase"}}},
+        {"@type": "cr:Field", "@id": "phase_1a/vendor", "name": "vendor", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "vendor"}}},
+        {"@type": "cr:Field", "@id": "phase_1a/model", "name": "model", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "model"}}},
+        {"@type": "cr:Field", "@id": "phase_1a/temperature", "name": "temperature", "dataType": "sc:Float", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "temperature"}}},
+        {"@type": "cr:Field", "@id": "phase_1a/query_id", "name": "query_id", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "query_id"}}},
+        {"@type": "cr:Field", "@id": "phase_1a/query_type", "name": "query_type", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "query_type"}}},
+        {"@type": "cr:Field", "@id": "phase_1a/kb_id", "name": "kb_id", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "kb_id"}}},
+        {"@type": "cr:Field", "@id": "phase_1a/prompt", "name": "prompt", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "prompt"}}},
+        {"@type": "cr:Field", "@id": "phase_1a/prompt_hash", "name": "prompt_hash", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "prompt_hash"}}},
+        {"@type": "cr:Field", "@id": "phase_1a/response_hash", "name": "response_hash", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "response_hash"}}},
+        {"@type": "cr:Field", "@id": "phase_1a/tool_calls_hash", "name": "tool_calls_hash", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "tool_calls_hash"}}},
+        {"@type": "cr:Field", "@id": "phase_1a/final_answer_hash", "name": "final_answer_hash", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "final_answer_hash"}}},
+        {"@type": "cr:Field", "@id": "phase_1a/run_idx", "name": "run_idx", "dataType": "sc:Integer", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "run_idx"}}},
+        {"@type": "cr:Field", "@id": "phase_1a/n_tool_calls", "name": "n_tool_calls", "dataType": "sc:Integer", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "n_tool_calls"}}},
+        {"@type": "cr:Field", "@id": "phase_1a/error_category", "name": "error_category", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "error_category"}}},
+        {"@type": "cr:Field", "@id": "phase_1a/latency_s", "name": "latency_s", "dataType": "sc:Float", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "latency_s"}}},
+        {"@type": "cr:Field", "@id": "phase_1a/in_tokens", "name": "in_tokens", "dataType": "sc:Integer", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "in_tokens"}}},
+        {"@type": "cr:Field", "@id": "phase_1a/out_tokens", "name": "out_tokens", "dataType": "sc:Integer", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "out_tokens"}}}
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "phase_1b",
+      "name": "phase_1b",
+      "description": "T=0.5 / T=1.0 temperature sweep rows.",
+      "field": [
+        {"@type": "cr:Field", "@id": "phase_1b/row_id", "name": "row_id", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1b_file"}, "extract": {"column": "row_id"}}},
+        {"@type": "cr:Field", "@id": "phase_1b/phase", "name": "phase", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1b_file"}, "extract": {"column": "phase"}}},
+        {"@type": "cr:Field", "@id": "phase_1b/vendor", "name": "vendor", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1b_file"}, "extract": {"column": "vendor"}}},
+        {"@type": "cr:Field", "@id": "phase_1b/model", "name": "model", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1b_file"}, "extract": {"column": "model"}}},
+        {"@type": "cr:Field", "@id": "phase_1b/temperature", "name": "temperature", "dataType": "sc:Float", "source": {"fileObject": {"@id": "phase_1b_file"}, "extract": {"column": "temperature"}}},
+        {"@type": "cr:Field", "@id": "phase_1b/query_id", "name": "query_id", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1b_file"}, "extract": {"column": "query_id"}}},
+        {"@type": "cr:Field", "@id": "phase_1b/prompt", "name": "prompt", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1b_file"}, "extract": {"column": "prompt"}}},
+        {"@type": "cr:Field", "@id": "phase_1b/prompt_hash", "name": "prompt_hash", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1b_file"}, "extract": {"column": "prompt_hash"}}},
+        {"@type": "cr:Field", "@id": "phase_1b/response_hash", "name": "response_hash", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1b_file"}, "extract": {"column": "response_hash"}}},
+        {"@type": "cr:Field", "@id": "phase_1b/tool_calls_hash", "name": "tool_calls_hash", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1b_file"}, "extract": {"column": "tool_calls_hash"}}},
+        {"@type": "cr:Field", "@id": "phase_1b/final_answer_hash", "name": "final_answer_hash", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1b_file"}, "extract": {"column": "final_answer_hash"}}},
+        {"@type": "cr:Field", "@id": "phase_1b/run_idx", "name": "run_idx", "dataType": "sc:Integer", "source": {"fileObject": {"@id": "phase_1b_file"}, "extract": {"column": "run_idx"}}},
+        {"@type": "cr:Field", "@id": "phase_1b/n_tool_calls", "name": "n_tool_calls", "dataType": "sc:Integer", "source": {"fileObject": {"@id": "phase_1b_file"}, "extract": {"column": "n_tool_calls"}}}
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "phase_2_v2",
+      "name": "phase_2_v2",
+      "description": "Phase 2 v2 mechanism-attribution rows (Qwen 2.5 72B Instruct on Modal vLLM, two toggle conditions, 800 runs each, 1,600 total).",
+      "field": [
+        {"@type": "cr:Field", "@id": "phase_2_v2/row_id", "name": "row_id", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_2_v2_file"}, "extract": {"column": "row_id"}}},
+        {"@type": "cr:Field", "@id": "phase_2_v2/phase", "name": "phase", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_2_v2_file"}, "extract": {"column": "phase"}}},
+        {"@type": "cr:Field", "@id": "phase_2_v2/vendor", "name": "vendor", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_2_v2_file"}, "extract": {"column": "vendor"}}},
+        {"@type": "cr:Field", "@id": "phase_2_v2/model", "name": "model", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_2_v2_file"}, "extract": {"column": "model"}}},
+        {"@type": "cr:Field", "@id": "phase_2_v2/toggle", "name": "toggle", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_2_v2_file"}, "extract": {"column": "toggle"}}},
+        {"@type": "cr:Field", "@id": "phase_2_v2/temperature", "name": "temperature", "dataType": "sc:Float", "source": {"fileObject": {"@id": "phase_2_v2_file"}, "extract": {"column": "temperature"}}},
+        {"@type": "cr:Field", "@id": "phase_2_v2/query_id", "name": "query_id", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_2_v2_file"}, "extract": {"column": "query_id"}}},
+        {"@type": "cr:Field", "@id": "phase_2_v2/query_type", "name": "query_type", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_2_v2_file"}, "extract": {"column": "query_type"}}},
+        {"@type": "cr:Field", "@id": "phase_2_v2/prompt", "name": "prompt", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_2_v2_file"}, "extract": {"column": "prompt"}}},
+        {"@type": "cr:Field", "@id": "phase_2_v2/prompt_hash", "name": "prompt_hash", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_2_v2_file"}, "extract": {"column": "prompt_hash"}}},
+        {"@type": "cr:Field", "@id": "phase_2_v2/response_hash", "name": "response_hash", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_2_v2_file"}, "extract": {"column": "response_hash"}}},
+        {"@type": "cr:Field", "@id": "phase_2_v2/tool_calls_hash", "name": "tool_calls_hash", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_2_v2_file"}, "extract": {"column": "tool_calls_hash"}}},
+        {"@type": "cr:Field", "@id": "phase_2_v2/final_answer_hash", "name": "final_answer_hash", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_2_v2_file"}, "extract": {"column": "final_answer_hash"}}},
+        {"@type": "cr:Field", "@id": "phase_2_v2/run_idx", "name": "run_idx", "dataType": "sc:Integer", "source": {"fileObject": {"@id": "phase_2_v2_file"}, "extract": {"column": "run_idx"}}},
+        {"@type": "cr:Field", "@id": "phase_2_v2/n_tool_calls", "name": "n_tool_calls", "dataType": "sc:Integer", "source": {"fileObject": {"@id": "phase_2_v2_file"}, "extract": {"column": "n_tool_calls"}}}
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "phase_3_5_swebench",
+      "name": "phase_3_5_swebench",
+      "description": "SWE-bench Lite chain-divergence rows.",
+      "field": [
+        {"@type": "cr:Field", "@id": "phase_3_5_swebench/row_id", "name": "row_id", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_3_5_file"}, "extract": {"column": "row_id"}}},
+        {"@type": "cr:Field", "@id": "phase_3_5_swebench/task_id", "name": "task_id", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_3_5_file"}, "extract": {"column": "task_id"}}},
+        {"@type": "cr:Field", "@id": "phase_3_5_swebench/model", "name": "model", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_3_5_file"}, "extract": {"column": "model"}}},
+        {"@type": "cr:Field", "@id": "phase_3_5_swebench/prompt", "name": "prompt", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_3_5_file"}, "extract": {"column": "prompt"}}},
+        {"@type": "cr:Field", "@id": "phase_3_5_swebench/prompt_hash", "name": "prompt_hash", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_3_5_file"}, "extract": {"column": "prompt_hash"}}},
+        {"@type": "cr:Field", "@id": "phase_3_5_swebench/response_hash", "name": "response_hash", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_3_5_file"}, "extract": {"column": "response_hash"}}},
+        {"@type": "cr:Field", "@id": "phase_3_5_swebench/tool_calls_hash", "name": "tool_calls_hash", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_3_5_file"}, "extract": {"column": "tool_calls_hash"}}},
+        {"@type": "cr:Field", "@id": "phase_3_5_swebench/final_answer_hash", "name": "final_answer_hash", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_3_5_file"}, "extract": {"column": "final_answer_hash"}}}
+      ]
+    }
+  ]
+}

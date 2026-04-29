@@ -1,0 +1,32 @@
+{
+  "total_runs": 22000,
+  "models": [
+    "claude-opus-4-6",
+    "claude-sonnet-4-5",
+    "deepseek-v3.1",
+    "gemini-2.5-flash",
+    "gpt-4.1",
+    "gpt-5.4",
+    "llama-3.1-70b",
+    "llama-3.3-70b",
+    "mistral-large",
+    "o3",
+    "qwen-2.5-72b"
+  ],
+  "per_model_counts": {
+    "claude-sonnet-4-5": 2000,
+    "claude-opus-4-6": 2000,
+    "gpt-5.4": 2000,
+    "gpt-4.1": 2000,
+    "o3": 2000,
+    "llama-3.1-70b": 2000,
+    "llama-3.3-70b": 2000,
+    "qwen-2.5-72b": 2000,
+    "deepseek-v3.1": 2000,
+    "mistral-large": 2000,
+    "gemini-2.5-flash": 2000
+  },
+  "license": "CC-BY-4.0",
+  "description": "Phase 1a full raw-chain release for chain-divergence reproducibility. Includes tool_call_sequence, final_answer_norm, rationale per run.",
+  "created": "2026-04-28 (v7.2 expansion)"
+}

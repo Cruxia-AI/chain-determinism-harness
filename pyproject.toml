@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "chain-determinism-harness"
+version = "0.1.0"
+description = "Measure chain-determinism (per-trace structural consistency across replays) for any OpenAI-compatible LLM endpoint."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+    { name = "Mars Ausili", email = "mars@cruxia.ai" },
+]
+keywords = [
+    "chain-determinism",
+    "agent-reproducibility",
+    "tool-calling",
+    "audit-trail",
+    "llm-evaluation",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "openai>=1.50.0",
+    "httpx>=0.27.0",
+]
+
+[project.urls]
+"Homepage" = "https://chain-determinism.org"
+"Paper" = "https://chain-determinism.org/paper"
+"Repository" = "https://github.com/Cruxia-AI/chain-determinism-harness"
+"Verifier" = "https://chain-determinism.org/verify"
+"Dataset" = "https://github.com/Cruxia-AI/chain-determinism-harness/tree/main/bench"
+"SDK" = "https://pypi.org/project/chain-receipt-sdk/"
+
+[project.scripts]
+chain-determinism-harness = "chain_determinism_harness.cli:main"
+
+[tool.setuptools]
+packages = ["chain_determinism_harness"]
