@@ -1,8 +1,16 @@
 # chain-determinism-harness
 
+[![License: MIT (code)](https://img.shields.io/badge/license-MIT%20%28code%29-blue.svg)](./LICENSE-CODE)
+[![License: CC-BY-4.0 (data)](https://img.shields.io/badge/license-CC--BY--4.0%20%28data%29-orange.svg)](./LICENSE-DATA)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-brightgreen.svg)](https://www.python.org/downloads/)
+[![Standard: Chain-Determinism](https://img.shields.io/badge/standard-chain--determinism-blueviolet.svg)](https://chain-determinism.org)
+[![Verifier: live](https://img.shields.io/badge/verifier-live-success.svg)](https://chain-determinism.org/verify)
+
 Reference reproducibility package for the **Chain-Determinism Standard**.
 
-This repository accompanies *Chain-Divergence: A Cross-Vendor Benchmark and Mechanism Probe for Replay-Attestable LLM Agents* (under peer review (2026)). It contains:
+> **Chain-divergence** is the fraction of replay-pairs that produce non-byte-identical tool-call sequences for the same query under fixed configuration. Most production LLM agents are chain-divergent at temperature zero. This package lets you measure that — for any OpenAI-compatible endpoint — in under five minutes.
+
+This repository accompanies *Chain-Divergence: A Cross-Vendor Benchmark and Mechanism Probe for Replay-Attestable LLM Agents* (under peer review, 2026). It contains:
 
 1. **`chain_determinism_harness/`** — a lightweight Python harness that measures chain-divergence on any OpenAI-compatible LLM endpoint in under five minutes. Same operationalization as the paper's §3.1 cross-vendor measurement; hashes are byte-identical to the released dataset.
 2. **`bench/`** — the released `chain-determinism-bench-v1` dataset: full per-replay raw chains for the 22,000 Phase 1a runs across nine non-reasoning vendors plus o3 and Gemini 2.5 Flash, with Croissant 1.0 metadata and a Datasheet for Datasets.
@@ -15,8 +23,18 @@ Companion artifacts:
 
 ## Install the harness
 
+The harness ships from source today (PyPI publication forthcoming):
+
 ```bash
-pip install chain-determinism-harness
+pip install git+https://github.com/Cruxia-AI/chain-determinism-harness.git
+```
+
+Or clone and install editable for the dataset reproduce-path below:
+
+```bash
+git clone https://github.com/Cruxia-AI/chain-determinism-harness.git
+cd chain-determinism-harness
+pip install -e .
 ```
 
 ## Quickstart (about five minutes, under two dollars in API spend)
@@ -116,3 +134,7 @@ If you use this work, please cite:
 ## Status
 
 Under peer review (2026). Issues and pull requests welcome at <https://github.com/Cruxia-AI/chain-determinism-harness/issues>.
+
+## About
+
+Maintained by [Cruxia AI](https://chain-determinism.org). Author: Mars Ausili (<mars@cruxia.ai>).
