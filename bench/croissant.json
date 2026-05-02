@@ -41,12 +41,16 @@
     "separator": "cr:separator",
     "source": "cr:source",
     "subField": "cr:subField",
-    "transform": "cr:transform"
+    "transform": "cr:transform",
+    "rai": "http://mlcommons.org/croissant/RAI/"
   },
   "@type": "sc:Dataset",
   "name": "chain-determinism-bench-v1",
   "description": "Multi-vendor chain-determinism observations from 22,000+ replayed agent runs across 11 LLMs. Per-run rows include prompt text (synthetic Sigma-registry queries) plus SHA-256 hashes for response, tool-call sequence, and final answer. Hash format is byte-identical to chain-receipt-sdk so each row can be replayed via `chain-receipt replay <hash>`. Released alongside the Chain-Divergence paper (Cruxia-AI, under peer review).",
-  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "conformsTo": [
+    "http://mlcommons.org/croissant/1.0",
+    "http://mlcommons.org/croissant/RAI/1.0"
+  ],
   "license": "https://creativecommons.org/licenses/by/4.0/",
   "url": "https://github.com/Cruxia-AI/chain-determinism-harness/tree/main/bench",
   "version": "0.1.0",
@@ -114,25 +118,272 @@
       "name": "phase_1a",
       "description": "T=0.0 multi-vendor replay rows.",
       "field": [
-        {"@type": "cr:Field", "@id": "phase_1a/row_id", "name": "row_id", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "row_id"}}},
-        {"@type": "cr:Field", "@id": "phase_1a/phase", "name": "phase", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "phase"}}},
-        {"@type": "cr:Field", "@id": "phase_1a/vendor", "name": "vendor", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "vendor"}}},
-        {"@type": "cr:Field", "@id": "phase_1a/model", "name": "model", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "model"}}},
-        {"@type": "cr:Field", "@id": "phase_1a/temperature", "name": "temperature", "dataType": "sc:Float", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "temperature"}}},
-        {"@type": "cr:Field", "@id": "phase_1a/query_id", "name": "query_id", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "query_id"}}},
-        {"@type": "cr:Field", "@id": "phase_1a/query_type", "name": "query_type", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "query_type"}}},
-        {"@type": "cr:Field", "@id": "phase_1a/kb_id", "name": "kb_id", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "kb_id"}}},
-        {"@type": "cr:Field", "@id": "phase_1a/prompt", "name": "prompt", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "prompt"}}},
-        {"@type": "cr:Field", "@id": "phase_1a/prompt_hash", "name": "prompt_hash", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "prompt_hash"}}},
-        {"@type": "cr:Field", "@id": "phase_1a/response_hash", "name": "response_hash", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "response_hash"}}},
-        {"@type": "cr:Field", "@id": "phase_1a/tool_calls_hash", "name": "tool_calls_hash", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "tool_calls_hash"}}},
-        {"@type": "cr:Field", "@id": "phase_1a/final_answer_hash", "name": "final_answer_hash", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "final_answer_hash"}}},
-        {"@type": "cr:Field", "@id": "phase_1a/run_idx", "name": "run_idx", "dataType": "sc:Integer", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "run_idx"}}},
-        {"@type": "cr:Field", "@id": "phase_1a/n_tool_calls", "name": "n_tool_calls", "dataType": "sc:Integer", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "n_tool_calls"}}},
-        {"@type": "cr:Field", "@id": "phase_1a/error_category", "name": "error_category", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "error_category"}}},
-        {"@type": "cr:Field", "@id": "phase_1a/latency_s", "name": "latency_s", "dataType": "sc:Float", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "latency_s"}}},
-        {"@type": "cr:Field", "@id": "phase_1a/in_tokens", "name": "in_tokens", "dataType": "sc:Integer", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "in_tokens"}}},
-        {"@type": "cr:Field", "@id": "phase_1a/out_tokens", "name": "out_tokens", "dataType": "sc:Integer", "source": {"fileObject": {"@id": "phase_1a_file"}, "extract": {"column": "out_tokens"}}}
+        {
+          "@type": "cr:Field",
+          "@id": "phase_1a/row_id",
+          "name": "row_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_1a_file"
+            },
+            "extract": {
+              "column": "row_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_1a/phase",
+          "name": "phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_1a_file"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_1a/vendor",
+          "name": "vendor",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_1a_file"
+            },
+            "extract": {
+              "column": "vendor"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_1a/model",
+          "name": "model",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_1a_file"
+            },
+            "extract": {
+              "column": "model"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_1a/temperature",
+          "name": "temperature",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "phase_1a_file"
+            },
+            "extract": {
+              "column": "temperature"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_1a/query_id",
+          "name": "query_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_1a_file"
+            },
+            "extract": {
+              "column": "query_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_1a/query_type",
+          "name": "query_type",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_1a_file"
+            },
+            "extract": {
+              "column": "query_type"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_1a/kb_id",
+          "name": "kb_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_1a_file"
+            },
+            "extract": {
+              "column": "kb_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_1a/prompt",
+          "name": "prompt",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_1a_file"
+            },
+            "extract": {
+              "column": "prompt"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_1a/prompt_hash",
+          "name": "prompt_hash",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_1a_file"
+            },
+            "extract": {
+              "column": "prompt_hash"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_1a/response_hash",
+          "name": "response_hash",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_1a_file"
+            },
+            "extract": {
+              "column": "response_hash"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_1a/tool_calls_hash",
+          "name": "tool_calls_hash",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_1a_file"
+            },
+            "extract": {
+              "column": "tool_calls_hash"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_1a/final_answer_hash",
+          "name": "final_answer_hash",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_1a_file"
+            },
+            "extract": {
+              "column": "final_answer_hash"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_1a/run_idx",
+          "name": "run_idx",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "phase_1a_file"
+            },
+            "extract": {
+              "column": "run_idx"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_1a/n_tool_calls",
+          "name": "n_tool_calls",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "phase_1a_file"
+            },
+            "extract": {
+              "column": "n_tool_calls"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_1a/error_category",
+          "name": "error_category",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_1a_file"
+            },
+            "extract": {
+              "column": "error_category"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_1a/latency_s",
+          "name": "latency_s",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "phase_1a_file"
+            },
+            "extract": {
+              "column": "latency_s"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_1a/in_tokens",
+          "name": "in_tokens",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "phase_1a_file"
+            },
+            "extract": {
+              "column": "in_tokens"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_1a/out_tokens",
+          "name": "out_tokens",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "phase_1a_file"
+            },
+            "extract": {
+              "column": "out_tokens"
+            }
+          }
+        }
       ]
     },
     {
@@ -141,19 +392,188 @@
       "name": "phase_1b",
       "description": "T=0.5 / T=1.0 temperature sweep rows.",
       "field": [
-        {"@type": "cr:Field", "@id": "phase_1b/row_id", "name": "row_id", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1b_file"}, "extract": {"column": "row_id"}}},
-        {"@type": "cr:Field", "@id": "phase_1b/phase", "name": "phase", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1b_file"}, "extract": {"column": "phase"}}},
-        {"@type": "cr:Field", "@id": "phase_1b/vendor", "name": "vendor", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1b_file"}, "extract": {"column": "vendor"}}},
-        {"@type": "cr:Field", "@id": "phase_1b/model", "name": "model", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1b_file"}, "extract": {"column": "model"}}},
-        {"@type": "cr:Field", "@id": "phase_1b/temperature", "name": "temperature", "dataType": "sc:Float", "source": {"fileObject": {"@id": "phase_1b_file"}, "extract": {"column": "temperature"}}},
-        {"@type": "cr:Field", "@id": "phase_1b/query_id", "name": "query_id", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1b_file"}, "extract": {"column": "query_id"}}},
-        {"@type": "cr:Field", "@id": "phase_1b/prompt", "name": "prompt", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1b_file"}, "extract": {"column": "prompt"}}},
-        {"@type": "cr:Field", "@id": "phase_1b/prompt_hash", "name": "prompt_hash", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1b_file"}, "extract": {"column": "prompt_hash"}}},
-        {"@type": "cr:Field", "@id": "phase_1b/response_hash", "name": "response_hash", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1b_file"}, "extract": {"column": "response_hash"}}},
-        {"@type": "cr:Field", "@id": "phase_1b/tool_calls_hash", "name": "tool_calls_hash", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1b_file"}, "extract": {"column": "tool_calls_hash"}}},
-        {"@type": "cr:Field", "@id": "phase_1b/final_answer_hash", "name": "final_answer_hash", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_1b_file"}, "extract": {"column": "final_answer_hash"}}},
-        {"@type": "cr:Field", "@id": "phase_1b/run_idx", "name": "run_idx", "dataType": "sc:Integer", "source": {"fileObject": {"@id": "phase_1b_file"}, "extract": {"column": "run_idx"}}},
-        {"@type": "cr:Field", "@id": "phase_1b/n_tool_calls", "name": "n_tool_calls", "dataType": "sc:Integer", "source": {"fileObject": {"@id": "phase_1b_file"}, "extract": {"column": "n_tool_calls"}}}
+        {
+          "@type": "cr:Field",
+          "@id": "phase_1b/row_id",
+          "name": "row_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_1b_file"
+            },
+            "extract": {
+              "column": "row_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_1b/phase",
+          "name": "phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_1b_file"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_1b/vendor",
+          "name": "vendor",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_1b_file"
+            },
+            "extract": {
+              "column": "vendor"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_1b/model",
+          "name": "model",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_1b_file"
+            },
+            "extract": {
+              "column": "model"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_1b/temperature",
+          "name": "temperature",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "phase_1b_file"
+            },
+            "extract": {
+              "column": "temperature"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_1b/query_id",
+          "name": "query_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_1b_file"
+            },
+            "extract": {
+              "column": "query_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_1b/prompt",
+          "name": "prompt",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_1b_file"
+            },
+            "extract": {
+              "column": "prompt"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_1b/prompt_hash",
+          "name": "prompt_hash",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_1b_file"
+            },
+            "extract": {
+              "column": "prompt_hash"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_1b/response_hash",
+          "name": "response_hash",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_1b_file"
+            },
+            "extract": {
+              "column": "response_hash"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_1b/tool_calls_hash",
+          "name": "tool_calls_hash",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_1b_file"
+            },
+            "extract": {
+              "column": "tool_calls_hash"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_1b/final_answer_hash",
+          "name": "final_answer_hash",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_1b_file"
+            },
+            "extract": {
+              "column": "final_answer_hash"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_1b/run_idx",
+          "name": "run_idx",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "phase_1b_file"
+            },
+            "extract": {
+              "column": "run_idx"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_1b/n_tool_calls",
+          "name": "n_tool_calls",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "phase_1b_file"
+            },
+            "extract": {
+              "column": "n_tool_calls"
+            }
+          }
+        }
       ]
     },
     {
@@ -162,21 +582,216 @@
       "name": "phase_2_v2",
       "description": "Phase 2 v2 mechanism-attribution rows (Qwen 2.5 72B Instruct on Modal vLLM, two toggle conditions, 800 runs each, 1,600 total).",
       "field": [
-        {"@type": "cr:Field", "@id": "phase_2_v2/row_id", "name": "row_id", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_2_v2_file"}, "extract": {"column": "row_id"}}},
-        {"@type": "cr:Field", "@id": "phase_2_v2/phase", "name": "phase", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_2_v2_file"}, "extract": {"column": "phase"}}},
-        {"@type": "cr:Field", "@id": "phase_2_v2/vendor", "name": "vendor", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_2_v2_file"}, "extract": {"column": "vendor"}}},
-        {"@type": "cr:Field", "@id": "phase_2_v2/model", "name": "model", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_2_v2_file"}, "extract": {"column": "model"}}},
-        {"@type": "cr:Field", "@id": "phase_2_v2/toggle", "name": "toggle", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_2_v2_file"}, "extract": {"column": "toggle"}}},
-        {"@type": "cr:Field", "@id": "phase_2_v2/temperature", "name": "temperature", "dataType": "sc:Float", "source": {"fileObject": {"@id": "phase_2_v2_file"}, "extract": {"column": "temperature"}}},
-        {"@type": "cr:Field", "@id": "phase_2_v2/query_id", "name": "query_id", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_2_v2_file"}, "extract": {"column": "query_id"}}},
-        {"@type": "cr:Field", "@id": "phase_2_v2/query_type", "name": "query_type", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_2_v2_file"}, "extract": {"column": "query_type"}}},
-        {"@type": "cr:Field", "@id": "phase_2_v2/prompt", "name": "prompt", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_2_v2_file"}, "extract": {"column": "prompt"}}},
-        {"@type": "cr:Field", "@id": "phase_2_v2/prompt_hash", "name": "prompt_hash", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_2_v2_file"}, "extract": {"column": "prompt_hash"}}},
-        {"@type": "cr:Field", "@id": "phase_2_v2/response_hash", "name": "response_hash", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_2_v2_file"}, "extract": {"column": "response_hash"}}},
-        {"@type": "cr:Field", "@id": "phase_2_v2/tool_calls_hash", "name": "tool_calls_hash", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_2_v2_file"}, "extract": {"column": "tool_calls_hash"}}},
-        {"@type": "cr:Field", "@id": "phase_2_v2/final_answer_hash", "name": "final_answer_hash", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_2_v2_file"}, "extract": {"column": "final_answer_hash"}}},
-        {"@type": "cr:Field", "@id": "phase_2_v2/run_idx", "name": "run_idx", "dataType": "sc:Integer", "source": {"fileObject": {"@id": "phase_2_v2_file"}, "extract": {"column": "run_idx"}}},
-        {"@type": "cr:Field", "@id": "phase_2_v2/n_tool_calls", "name": "n_tool_calls", "dataType": "sc:Integer", "source": {"fileObject": {"@id": "phase_2_v2_file"}, "extract": {"column": "n_tool_calls"}}}
+        {
+          "@type": "cr:Field",
+          "@id": "phase_2_v2/row_id",
+          "name": "row_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_2_v2_file"
+            },
+            "extract": {
+              "column": "row_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_2_v2/phase",
+          "name": "phase",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_2_v2_file"
+            },
+            "extract": {
+              "column": "phase"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_2_v2/vendor",
+          "name": "vendor",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_2_v2_file"
+            },
+            "extract": {
+              "column": "vendor"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_2_v2/model",
+          "name": "model",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_2_v2_file"
+            },
+            "extract": {
+              "column": "model"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_2_v2/toggle",
+          "name": "toggle",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_2_v2_file"
+            },
+            "extract": {
+              "column": "toggle"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_2_v2/temperature",
+          "name": "temperature",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "phase_2_v2_file"
+            },
+            "extract": {
+              "column": "temperature"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_2_v2/query_id",
+          "name": "query_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_2_v2_file"
+            },
+            "extract": {
+              "column": "query_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_2_v2/query_type",
+          "name": "query_type",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_2_v2_file"
+            },
+            "extract": {
+              "column": "query_type"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_2_v2/prompt",
+          "name": "prompt",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_2_v2_file"
+            },
+            "extract": {
+              "column": "prompt"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_2_v2/prompt_hash",
+          "name": "prompt_hash",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_2_v2_file"
+            },
+            "extract": {
+              "column": "prompt_hash"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_2_v2/response_hash",
+          "name": "response_hash",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_2_v2_file"
+            },
+            "extract": {
+              "column": "response_hash"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_2_v2/tool_calls_hash",
+          "name": "tool_calls_hash",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_2_v2_file"
+            },
+            "extract": {
+              "column": "tool_calls_hash"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_2_v2/final_answer_hash",
+          "name": "final_answer_hash",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_2_v2_file"
+            },
+            "extract": {
+              "column": "final_answer_hash"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_2_v2/run_idx",
+          "name": "run_idx",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "phase_2_v2_file"
+            },
+            "extract": {
+              "column": "run_idx"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_2_v2/n_tool_calls",
+          "name": "n_tool_calls",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "phase_2_v2_file"
+            },
+            "extract": {
+              "column": "n_tool_calls"
+            }
+          }
+        }
       ]
     },
     {
@@ -185,15 +800,156 @@
       "name": "phase_3_5_swebench",
       "description": "SWE-bench Lite chain-divergence rows.",
       "field": [
-        {"@type": "cr:Field", "@id": "phase_3_5_swebench/row_id", "name": "row_id", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_3_5_file"}, "extract": {"column": "row_id"}}},
-        {"@type": "cr:Field", "@id": "phase_3_5_swebench/task_id", "name": "task_id", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_3_5_file"}, "extract": {"column": "task_id"}}},
-        {"@type": "cr:Field", "@id": "phase_3_5_swebench/model", "name": "model", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_3_5_file"}, "extract": {"column": "model"}}},
-        {"@type": "cr:Field", "@id": "phase_3_5_swebench/prompt", "name": "prompt", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_3_5_file"}, "extract": {"column": "prompt"}}},
-        {"@type": "cr:Field", "@id": "phase_3_5_swebench/prompt_hash", "name": "prompt_hash", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_3_5_file"}, "extract": {"column": "prompt_hash"}}},
-        {"@type": "cr:Field", "@id": "phase_3_5_swebench/response_hash", "name": "response_hash", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_3_5_file"}, "extract": {"column": "response_hash"}}},
-        {"@type": "cr:Field", "@id": "phase_3_5_swebench/tool_calls_hash", "name": "tool_calls_hash", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_3_5_file"}, "extract": {"column": "tool_calls_hash"}}},
-        {"@type": "cr:Field", "@id": "phase_3_5_swebench/final_answer_hash", "name": "final_answer_hash", "dataType": "sc:Text", "source": {"fileObject": {"@id": "phase_3_5_file"}, "extract": {"column": "final_answer_hash"}}}
+        {
+          "@type": "cr:Field",
+          "@id": "phase_3_5_swebench/row_id",
+          "name": "row_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_3_5_file"
+            },
+            "extract": {
+              "column": "row_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_3_5_swebench/task_id",
+          "name": "task_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_3_5_file"
+            },
+            "extract": {
+              "column": "task_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_3_5_swebench/model",
+          "name": "model",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_3_5_file"
+            },
+            "extract": {
+              "column": "model"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_3_5_swebench/prompt",
+          "name": "prompt",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_3_5_file"
+            },
+            "extract": {
+              "column": "prompt"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_3_5_swebench/prompt_hash",
+          "name": "prompt_hash",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_3_5_file"
+            },
+            "extract": {
+              "column": "prompt_hash"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_3_5_swebench/response_hash",
+          "name": "response_hash",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_3_5_file"
+            },
+            "extract": {
+              "column": "response_hash"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_3_5_swebench/tool_calls_hash",
+          "name": "tool_calls_hash",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_3_5_file"
+            },
+            "extract": {
+              "column": "tool_calls_hash"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "phase_3_5_swebench/final_answer_hash",
+          "name": "final_answer_hash",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "phase_3_5_file"
+            },
+            "extract": {
+              "column": "final_answer_hash"
+            }
+          }
+        }
       ]
     }
-  ]
+  ],
+  "rai:dataCollection": "Each row was generated by executing one agent run via direct vendor APIs: Anthropic Messages API (Claude Sonnet 4.5, Opus 4.6); OpenAI Chat Completions API (GPT-4.1, GPT-5.4, o3); OpenRouter (Llama 3.1/3.3 70B, Qwen 2.5 72B, DeepSeek V3.1, Mistral Large 2411, Gemini 2.5 Flash) with default routing; and Modal vLLM A100-80GB:2 (Phase 2 v2 mechanism cell on Qwen 2.5 72B Instruct). Phase 1a sampling: 11 vendors x 40 held-out OOD queries (Sigma-registry held-out generator, seed=2026, 8 query types x 5 surface variations) x 50 replays = 22,000 runs. Phase 1b: T=1.0 temperature sweep (10 vendors x 40 queries x 20 replays). Phase 2 v2: 40 queries x 20 replays x 2 toggles (baseline_all_on vs batch_invariant_proxy) = 1,600 runs. Phase 3.5: SWE-bench Lite chain-divergence subset (3 vendors x ~30 instances x ~2 replays = 164 rows). Concurrency=10 in Phase 1 batched mode; serial single-toggle runs in Phase 2 to ensure controlled-stack measurement. All runs at T=0 unless noted. Source code: scripts/paper5_multivendor_replay.py (Phase 1), scripts/paper5_mechanism_modal.py (Phase 2), scripts/paper5_swebench_lite_chain_div.py (Phase 3.5). Collection timeframe: March-April 2026.",
+  "rai:dataAnnotationProtocol": "No human annotation was performed. Each row is a content-addressed agent-execution receipt; the only derived properties are computed mechanically from the raw run data: chain-divergence is a consistency property across multiple replays of the same query, computed by grouping rows on (vendor, model, query_id) and checking SHA-256 hash agreement of `tool_calls_hash` (canonical JSON serialization with sorted keys, NFC Unicode normalization). No annotators, labelers, or crowdworkers involved. Tool-call sequences are hashed via the same `compute_tool_calls_hash` helper used by the chain-receipt-sdk to ensure byte-identical hashes between dataset rows and SDK-emitted Receipts. Final-answer text is normalized to NFC Unicode and lowercased before hashing.",
+  "rai:dataSocialImpact": "Positive impacts: (1) enables independent reproducibility audit of LLM agent systems by providing a public measurement protocol and reference dataset; (2) supports replay-based audit workflows that organizations may adopt under emerging regulatory frameworks (EU AI Act Articles 12 / 26 / 86, SR 11-7, HIPAA audit-control programs), with the explicit caveat that chain-determinism is a technical precondition rather than a satisfaction of any regulatory regime; (3) provides community measurement infrastructure that vendors can use to demonstrate or improve their own determinism profiles; (4) the calibrated-zero substrate methodology supplies a reusable instrument-design pattern for differential-measurement work in adjacent areas. Negative-impact / misuse considerations: (a) chain-divergence rates measured here are task-class-dependent and reflect a specific synthetic compositional benchmark; using them as a vendor reputation ranking would be a misuse and we explicitly disclaim that interpretation in the dataset documentation; (b) the metric does not capture semantic equivalence (commutative reorderings of independent tool calls are flagged as divergent), so headline rates may overstate user-visible non-determinism; (c) the dataset measures a system property rather than personal data and contains no harmful content, so direct misuse risk is low.",
+  "rai:dataReleaseMaintenancePlan": [
+    "Maintained by the dataset creator; full plan in MAINTENANCE.md at the dataset root.",
+    "Verifier endpoint (chain-determinism.org/verify/{hash}) committed for at least 24 months from initial release on Cloudflare Workers + KV.",
+    "v0.1.0 will remain accessible on HuggingFace Datasets for at least 5 years; future versions are additive.",
+    "Semantic versioning: MAJOR.MINOR.PATCH. MAJOR for backwards-incompatible Receipt schema changes; MINOR for new vendor support or additive Receipt fields; PATCH for bug fixes and documentation updates.",
+    "Each tagged release auto-archives to Zenodo with a stable DOI; placeholder 10.5281/zenodo.XXXXXXX assigned at submission, real DOI on first tagged release.",
+    "CHANGELOG.md follows the Keep a Changelog format and tracks all updates per repository.",
+    "Issue triage SLA: 14 days for the first 12 months post-publication.",
+    "Sunset policy: if maintenance becomes infeasible the maintainer will (1) post a deprecation notice at least 3 months in advance, (2) tag the final stable release, (3) archive all data and Receipts to a permanent academic archive (Internet Archive, Zenodo) with public access, (4) document an alternative static verifier path."
+  ],
+  "rai:dataUseCases": [
+    "Chain-determinism measurement of new vendors: replicate Phase 1a methodology with chain-receipt-sdk and add vendor rows.",
+    "Cross-temperature reproducibility benchmarking: extend Phase 1b with additional temperature settings or vendors.",
+    "Mechanism-attribution research on serving-stack non-determinism: replicate Phase 2 v2 matched-pair toggle protocol on alternative serving stacks (TGI, SGLang, llama.cpp) or model architectures.",
+    "Audit-trail-protocol research using chain-receipt replay machinery and Receipt-level signature verification.",
+    "Calibration-instrument research using the bit-deterministic substrate (Lean theorems plus 499/499 differential test) as a deterministic-zero baseline for differential measurement of upstream variance.",
+    "OUT OF SCOPE: vendor reputation rankings (the metric is task-class-dependent and a low rate on this benchmark does not imply higher quality on other dimensions); regulatory compliance assessment (compliance is a legal determination requiring qualified counsel, not a technical measurement); adversarial robustness benchmarking (the metric rewards superficial template-locking and does not measure semantic determinism)."
+  ],
+  "rai:dataBiases": [
+    "Vendor selection bias: convenience sample of vendors accessible via Anthropic, OpenAI, and OpenRouter direct APIs at measurement time (March-April 2026). Excludes Gemini Pro, Bedrock-only proprietary models, Azure-only deployments, and on-premise models.",
+    "Sigma-registry contamination unverifiable: if a frontier vendor's pretraining corpus included material similar to the held-out OOD generator, chain-divergence rates may be artificially lower for that vendor.",
+    "OpenRouter routing variance: Phase 1a/1b rows for open-weights models (Llama 3.1/3.3, Qwen 2.5, DeepSeek V3.1, Mistral Large) routed via OpenRouter with default load-balancing across multiple backend serving providers. Provider routing was not pinned, so open-weights rates conflate model-level and serving-infrastructure-level non-determinism.",
+    "Reasoning-model temperature confound: o3 and gpt-5.4-turbo silently reject the temperature parameter at the API; their Phase 1a rows were requested at T=0 but the model actually ran at default ~T=1.0. The companion paper marks these explicitly and discusses the implication.",
+    "Vendor-format-incompatibility bias: Gemini 2.5 Flash and Mistral 7B v0.3 emit zero tool-call payloads under our OpenAI-compatible function-calling harness (a harness-side schema mismatch with each vendor's native tool-calling format, not a model-capability failure). They are excluded from cross-vendor comparison."
+  ],
+  "rai:dataLimitations": [
+    "Effective sample size: the 40-query held-out subset is structured as 8 query templates x 5 surface variations; statistical analyses with effective sample size n_eff <= 8 on the query-template axis. Pair-level binomial CIs would be artificially narrow under within-query clustering and are not reported as inferential measures.",
+    "Vendor model versions are not pinned: OpenAI snapshot IDs and Anthropic API versions drift over time, so rates published may not reproduce on later snapshots. Each release pins a model-snapshot date in the README.",
+    "Byte-exact metric vs semantic equivalence: the metric does not capture semantic equivalence (commutative reorderings of independent tool calls are flagged as divergent). A 5-layer algorithmic normalizer absorbs only 1.0% of chain-divergent pairs on the full 158K-pair Phase 1a population (Appendix C of the companion paper); a 50-pair audit finds 0/50 trivial-equivalent (Wilson 95% upper bound about 7.1%, so the audit rules out large trivial-equivalence rates but not small ones).",
+    "Phase 1b rows lack latency and token-count fields (the original evaluation script did not capture them).",
+    "Phase 2 v2 raw rationales and final-answer text are retained locally with the dataset creator but not redistributed; only hashes and prompt text are released for that split. Vendor responses for Phase 1a/1b are similarly content-free (hash-only) by design.",
+    "Phase 3.5 SWE-bench Lite is a stub-environment preliminary: tools return content-keyed deterministic stubs, so observed chain-divergence is partly exploration-under-futility rather than real repair-plan variation. The companion paper Section 3.3 reports a real-Docker SWE-bench Substantive+ run (8,100 runs across 3 vendors) that supersedes this preliminary."
+  ],
+  "rai:personalSensitiveInformation": "No personal or sensitive information. Prompts are synthetic factual database-style questions about synthetic knowledge bases (e.g., 'find the busiest contributor on a synthetic biology corpus'); none reference real people, organizations, locations, or events. Vendor responses are not redistributed (only SHA-256 hashes are published). The dataset does not relate to people. No personally identifiable information (PII), no protected health information (PHI), no biometric data, no financial data."
 }

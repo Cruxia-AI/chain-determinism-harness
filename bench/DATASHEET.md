@@ -191,7 +191,7 @@ v0.1.0 released 2026-04-27 alongside the companion paper submission (under peer 
               https://github.com/Cruxia-AI/chain-determinism-harness/tree/main/bench}
   }
   ```
-- *Source code* (`prepare.py`, `backfill_phase2.py`): Apache-2.0.
+- *Source code* (`prepare.py`, `backfill_phase2.py`, `upload.py`): MIT (matches the rest of the bundle).
 - *Vendor responses are not included*; their hashes are derivative observations and do not carry vendor IP.
 
 **Have any third parties imposed IP-based or other restrictions on the data associated with the instances?**
